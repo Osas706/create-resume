@@ -56,7 +56,7 @@ function Hero() {
               {Array(5)
                 .fill(0)
                 .map((_, i) => (
-                  <Star size={13} fill="black" />
+                  <Star key={i} size={13} fill="black" />
                 ))}
             </div>
             <p className="text-sm text-gray-700">Used by 10,***+ Users</p>

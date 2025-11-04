@@ -74,7 +74,7 @@ function Testimonial() {
   return (
     <div id="testimonials" className="space-y-4">
       {/* badge */}
-      <div class="flex items-center gap-2 text-indigo-800 bg-blue-400/10 border border-indigo-200 rounded-full px-4 py-1 w-max mx-auto">
+      <div className="flex items-center gap-2 text-indigo-800 bg-blue-400/10 border border-indigo-200 rounded-full px-4 py-1 w-max mx-auto">
         <BookUser color="#1E4BAF" size={18} />
         <span>Testimonials</span>
       </div>
