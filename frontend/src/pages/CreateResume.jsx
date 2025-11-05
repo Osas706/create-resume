@@ -1,5 +1,5 @@
 import { dummyResumeData } from "@/assets/assets";
-
+import PersonalInfoForm from "@/features/createResume/PersonalInfoForm";
 import {
   ArrowLeft,
   Briefcase,
@@ -120,7 +120,17 @@ function CreateResume() {
               {/* *** form *** */}
               <div className="space-y-6">
                 {activeSection.id === "personal" && (
-                  <div className=""></div>
+                  <PersonalInfoForm
+                    data={resumeData.personal_info}
+                    onChange={() =>
+                      setResumeData((prev) => ({
+                        ...prev,
+                        personal_info: data,
+                      }))
+                    }
+                    removeBackground={removeBackground}
+                    setRemoveBackground={setRemoveBackground}
+                  />
                 )}
               </div>
             </div>
