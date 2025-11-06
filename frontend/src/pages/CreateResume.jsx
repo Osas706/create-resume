@@ -3,6 +3,7 @@ import ColorPicker from "@/features/createResume/ColorPicker";
 import EducationForm from "@/features/createResume/EducationForm";
 import ExperienceForm from "@/features/createResume/ExperienceForm";
 import PersonalInfoForm from "@/features/createResume/PersonalInfoForm";
+import ProjectsForm from "@/features/createResume/ProjectsForm";
 import ResumePreview from "@/features/createResume/ResumePreview";
 import SummaryForm from "@/features/createResume/SummaryForm";
 import TemplateSelector from "@/features/createResume/TemplateSelector";
@@ -185,6 +186,20 @@ function CreateResume() {
                       setResumeData((prev) => ({
                         ...prev,
                         education: data,
+                      }))
+                    }
+                    setResumeData={setResumeData}
+                  />
+                )}
+
+                {/* ********** projects form ********** */}
+                {activeSection.id === "projects" && (
+                  <ProjectsForm
+                    data={resumeData?.project}
+                    onChange={(data) =>
+                      setResumeData((prev) => ({
+                        ...prev,
+                        project : data,
                       }))
                     }
                     setResumeData={setResumeData}
