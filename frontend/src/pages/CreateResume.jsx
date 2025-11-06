@@ -101,6 +101,7 @@ function CreateResume() {
                   />
                 </div>
 
+                {/* Previous & Next Btns */}
                 <div className="flex items-center">
                   {activeSectionIndex !== 0 && (
                     <button
