@@ -2,6 +2,7 @@ import { dummyResumeData } from "@/assets/assets";
 import ColorPicker from "@/features/createResume/ColorPicker";
 import PersonalInfoForm from "@/features/createResume/PersonalInfoForm";
 import ResumePreview from "@/features/createResume/ResumePreview";
+import SummaryForm from "@/features/createResume/SummaryForm";
 import TemplateSelector from "@/features/createResume/TemplateSelector";
 import {
   ArrowLeft,
@@ -130,6 +131,7 @@ function CreateResume() {
 
               {/* *** form *** */}
               <div className="space-y-6">
+                {/* ********** personal form ********** */}
                 {activeSection.id === "personal" && (
                   <PersonalInfoForm
                     data={resumeData?.personal_info}
@@ -143,6 +145,22 @@ function CreateResume() {
                     setRemoveBackground={setRemoveBackground}
                   />
                 )}
+
+                {/* ********** summary form ********** */}
+                {activeSection.id === "summary" && (
+                  <SummaryForm
+                    data={resumeData?.professional_summary}
+                    onChange={(data) =>
+                      setResumeData((prev) => ({
+                        ...prev,
+                        professional_summary: data,
+                      }))
+                    }
+                    setResumeData={setResumeData}
+                  />
+                )}
+
+
               </div>
             </div>
           </div>
