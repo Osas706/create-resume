@@ -1,5 +1,6 @@
 import { dummyResumeData } from "@/assets/assets";
 import ColorPicker from "@/features/createResume/ColorPicker";
+import EducationForm from "@/features/createResume/EducationForm";
 import ExperienceForm from "@/features/createResume/ExperienceForm";
 import PersonalInfoForm from "@/features/createResume/PersonalInfoForm";
 import ResumePreview from "@/features/createResume/ResumePreview";
@@ -170,6 +171,20 @@ function CreateResume() {
                       setResumeData((prev) => ({
                         ...prev,
                         experience: data,
+                      }))
+                    }
+                    setResumeData={setResumeData}
+                  />
+                )}
+
+                {/* ********** education form ********** */}
+                {activeSection.id === "education" && (
+                  <EducationForm
+                    data={resumeData?.education}
+                    onChange={(data) =>
+                      setResumeData((prev) => ({
+                        ...prev,
+                        education: data,
                       }))
                     }
                     setResumeData={setResumeData}
