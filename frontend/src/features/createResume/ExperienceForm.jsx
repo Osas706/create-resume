@@ -4,7 +4,7 @@ import React from "react";
 function ExperienceForm({ data, onChange }) {
   // addExperience func
   const addExperience = () => {
-    const newExperince = {
+    const newExperience = {
       company: "",
       position: "",
       start_date: "",
@@ -13,7 +13,7 @@ function ExperienceForm({ data, onChange }) {
       is_current: false,
     };
 
-    onChange([...data, newExperince]);
+    onChange([...data, newExperience]);
   };
 
   // removeExperince func
