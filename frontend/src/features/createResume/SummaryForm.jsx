@@ -4,7 +4,7 @@ import React from "react";
 function SummaryForm({ data, onChange, setResumeData }) {
   return (
     <div className="space-y-4">
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between gap-2">
         <div className="">
           <h3 className="text-lg font-semibold text-gray-500">
             Professional Summary Info
@@ -14,7 +14,7 @@ function SummaryForm({ data, onChange, setResumeData }) {
           </p>
         </div>
 
-        <button className="flex items-center gap-2 px-3 py-1 text-sm bg-purple-100 text-purple-700 rounded hover:bg-purple-200 transition-colors disabled:opacity-50">
+        <button className="flex items-center gap-2 px-1 py-2 text-sm bg-purple-100 text-purple-700 rounded hover:bg-purple-200 transition-colors disabled:opacity-50">
           <Sparkles className="size-4" />
           AI Enhance
         </button>

@@ -140,9 +140,9 @@ function ExperienceForm({ data, onChange }) {
 
               {/* Job Description & AI  */}
               <div className="space-y-2">
-                <div className="flex items-center justify-between">
+                <div className="flex items-center justify-between gap-2">
                   <label htmlFor="text-sm font-medium text-gray-700 ">Job Description</label>
-                  <button className="flex items-center gap-1 px-2 py-1 text-xs bg-purple-100 rounded  hover:bg-purple-200 text-purple-700 transition-colors disabled:opacity-50  ">
+                  <button className="flex items-center gap-1 px- py-2 text-xs bg-purple-100 rounded  hover:bg-purple-200 text-purple-700 transition-colors disabled:opacity-50  ">
                     <Sparkles className="w-3 h-3" />
                     Enhance with AI
                   </button>
