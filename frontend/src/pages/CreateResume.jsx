@@ -1,8 +1,8 @@
 import { dummyResumeData } from "@/assets/assets";
-
+import ColorPicker from "@/features/createResume/ColorPicker";
 import PersonalInfoForm from "@/features/createResume/PersonalInfoForm";
 import ResumePreview from "@/features/createResume/ResumePreview";
-
+import TemplateSelector from "@/features/createResume/TemplateSelector";
 import {
   ArrowLeft,
   Briefcase,
@@ -88,7 +88,15 @@ function CreateResume() {
               {/* section navigation */}
               <div className="flex justify-between items-center mb-6 border-b border-gray-300 py-1">
                 <div className="flex items-center  gap-2">
-         
+                  <TemplateSelector 
+                    selectedTemplate={resumeData.template} 
+                    onChange={(template) => setResumeData(prev => ({...prev, template}))} 
+                  />
+
+                  <ColorPicker 
+                    selectedColor={resumeData.accent_color} 
+                    onChange={(color) => setResumeData(prev => ({...prev,accent_color: color}))}  
+                  />
                 </div>
 
                 <div className="flex items-center">
