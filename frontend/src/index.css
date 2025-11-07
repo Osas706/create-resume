@@ -24,6 +24,19 @@
   }
 }
 
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  #resume {
+    visibility: visible;
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+}
+
+
 @keyframes marqueeScroll {
   0% {
     transform: translateX(0%);
