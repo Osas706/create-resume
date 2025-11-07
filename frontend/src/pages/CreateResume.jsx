@@ -5,6 +5,7 @@ import ExperienceForm from "@/features/createResume/ExperienceForm";
 import PersonalInfoForm from "@/features/createResume/PersonalInfoForm";
 import ProjectsForm from "@/features/createResume/ProjectsForm";
 import ResumePreview from "@/features/createResume/ResumePreview";
+import SkillsForm from "@/features/createResume/SkillsForm";
 import SummaryForm from "@/features/createResume/SummaryForm";
 import TemplateSelector from "@/features/createResume/TemplateSelector";
 import {
@@ -206,6 +207,19 @@ function CreateResume() {
                   />
                 )}
 
+                {/* ********** skills form ********** */}
+                {activeSection.id === "skills" && (
+                  <SkillsForm
+                    data={resumeData?.skills}
+                    onChange={(data) =>
+                      setResumeData((prev) => ({
+                        ...prev,
+                        skills : data,
+                      }))
+                    }
+                    setResumeData={setResumeData}
+                  />
+                )}
 
               </div>
             </div>
