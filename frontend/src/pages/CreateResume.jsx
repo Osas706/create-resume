@@ -13,14 +13,19 @@ import {
   Briefcase,
   ChevronLeft,
   ChevronRight,
+  Download,
+  Eye,
+  EyeOff,
   FileText,
   Folder,
   GraduationCap,
+  Share2,
   Sparkle,
   User,
 } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
+import { toast } from "sonner";
 
 function CreateResume() {
   const { resumeId } = useParams();
@@ -64,6 +69,45 @@ function CreateResume() {
   ];
   const activeSection = sections[activeSectionIndex];
 
+  // chanageResumeVisibility func
+  const chanageResumeVisibility = async (params) => {
+    setResumeData({ ...resumeData, public: !resumeData.public });
+  };
+
+  // handleShare func
+  const handleShare = async () => {
+    const frontendUrl = window.location.href.split("/app/")[0];
+    const resumeUrl = `${frontendUrl}/view/${resumeId}`;
+
+    try {
+      if (navigator.share) {
+        await navigator.share({
+          title: "My Resume",
+          text: "Check out my resume!",
+          url: resumeUrl,
+        });
+        toast("✅ Shared successfully!");
+      }
+
+      // Copy to clipboard either way (as a convenience)
+      await navigator.clipboard.writeText(resumeUrl);
+      toast("📋 Link also copied to clipboard");
+    } catch (err) {
+      console.error("Error sharing:", err);
+      toast("⚠️ Failed to share. Link copied instead.");
+      try {
+        await navigator.clipboard.writeText(resumeUrl);
+      } catch {
+        toast("❌ Could not copy link. Please copy manually.");
+      }
+    }
+  };
+
+  // downloadResume func
+  const downloadResume = () => {
+    window.print();
+  };
+
   return (
     <div>
       <div className="max-w-7xl mx-auto px-4 py-6">
@@ -86,21 +130,30 @@ function CreateResume() {
               <hr
                 className="absolute top-0 left-0 h-1 bg-linear-to-r from-indigo-500 to-indigo-600 border-none transition-all duration-1000"
                 style={{
-                  width: `${(activeSectionIndex * 100) / (sections.length - 1)}%`,
+                  width: `${
+                    (activeSectionIndex * 100) / (sections.length - 1)
+                  }%`,
                 }}
               />
 
               {/* section navigation */}
               <div className="flex justify-between items-center mb-6 border-b border-gray-300 py-1">
                 <div className="flex items-center  gap-2">
-                  <TemplateSelector 
-                    selectedTemplate={resumeData.template} 
-                    onChange={(template) => setResumeData(prev => ({...prev, template}))} 
+                  <TemplateSelector
+                    selectedTemplate={resumeData.template}
+                    onChange={(template) =>
+                      setResumeData((prev) => ({ ...prev, template }))
+                    }
                   />
 
-                  <ColorPicker 
-                    selectedColor={resumeData.accent_color} 
-                    onChange={(color) => setResumeData(prev => ({...prev,accent_color: color}))}  
+                  <ColorPicker
+                    selectedColor={resumeData.accent_color}
+                    onChange={(color) =>
+                      setResumeData((prev) => ({
+                        ...prev,
+                        accent_color: color,
+                      }))
+                    }
                   />
                 </div>
 
@@ -200,7 +253,7 @@ function CreateResume() {
                     onChange={(data) =>
                       setResumeData((prev) => ({
                         ...prev,
-                        project : data,
+                        project: data,
                       }))
                     }
                     setResumeData={setResumeData}
@@ -214,30 +267,61 @@ function CreateResume() {
                     onChange={(data) =>
                       setResumeData((prev) => ({
                         ...prev,
-                        skills : data,
+                        skills: data,
                       }))
                     }
                     setResumeData={setResumeData}
                   />
                 )}
-
               </div>
+
+              <button className="bg-linear-to-br from-green-100 to-green-200 ring-green-300 text-green-600 ring hover:ring-green-400 transition-all rounded-md px-6 py-2 mt-5 text-sm">
+                Save Changes
+              </button>
             </div>
           </div>
 
           {/* right panel -- PREVIEW */}
           <div className="lg:col-span-7 max-lg:mt-6">
-            {/* btns */}
-            <div className="">
+            {/* preview btns tools */}
+            <div className="relative w-full">
+              <div className="absolute bottom-3 left-0 right-0 flex items-center justify-end gap-2">
+                {resumeData.public && (
+                  <button
+                    onClick={handleShare}
+                    className="flex items-center p-2 px-4 gap-2 text-xs text-indigo-600 bg-indigo-100 rounded-lg ring-indigo-300 hover:ring transition-colors"
+                  >
+                    <Share2 className="size-4" /> Share
+                  </button>
+                )}
 
+                <button
+                  onClick={chanageResumeVisibility}
+                  className="flex items-center p-2 px-4 gap-2 text-xs text-purple-600 bg-purple-100 rounded-lg ring-purple-300 hover:ring transition-colors"
+                >
+                  {resumeData.public ? (
+                    <Eye className="size-4" />
+                  ) : (
+                    <EyeOff className="size-4" />
+                  )}
+                  {resumeData.public ? "Public" : "Private"}
+                </button>
+
+                <button
+                  onClick={downloadResume}
+                  className="flex items-center p-2 px-4 gap-2 text-xs text-green-600 bg-green-100 rounded-lg ring-greeb-300 hover:ring transition-colors"
+                >
+                  <Download className="size-4" /> Download
+                </button>
+              </div>
             </div>
 
             {/* resume preview */}
             <div>
-              <ResumePreview 
-                data={resumeData} 
-                template={resumeData.template} 
-                accentColor={resumeData.accent_color} 
+              <ResumePreview
+                data={resumeData}
+                template={resumeData.template}
+                accentColor={resumeData.accent_color}
               />
             </div>
           </div>
