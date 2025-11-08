@@ -42,7 +42,7 @@ function PersonalInfoForm({
 
   return (
     <div>
-      <h3 className="text-lg font-semibold text-gray-500">Personal Info</h3>
+      <h3 className="text-lg font-semibold text-gray-700">Personal Info</h3>
       <p className="text-sm text-gray-600">
         Get started ith the personal information{" "}
       </p>

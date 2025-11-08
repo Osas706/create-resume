@@ -6,7 +6,7 @@ function SummaryForm({ data, onChange, setResumeData }) {
     <div className="space-y-4">
       <div className="flex items-center justify-between gap-2">
         <div className="">
-          <h3 className="text-lg font-semibold text-gray-500">
+          <h3 className="text-lg font-semibold text-gray-700">
             Professional Summary Info
           </h3>
           <p className="text-sm text-gray-600">

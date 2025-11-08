@@ -30,7 +30,7 @@ function ProjectsForm({ data, onChange }) {
     <div className="space-y-5">
       <div className="flex items-center justify-between">
         <div className="">
-          <h3 className="text-lg font-semibold text-gray-500">Projects</h3>
+          <h3 className="text-lg font-semibold text-gray-700">Projects</h3>
           <p className="text-sm text-gray-600">Add your projects</p>
         </div>
 

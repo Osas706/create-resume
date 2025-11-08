@@ -28,7 +28,7 @@ function SkillsForm({ data, onChange }) {
   return (
     <div className="space-y-5">
       <div className="">
-        <h3 className="text-lg font-semibold text-gray-500">Skills</h3>
+        <h3 className="text-lg font-semibold text-gray-700">Skills</h3>
         <p className="text-sm text-gray-600">
           Add your technical and soft skills.
         </p>
