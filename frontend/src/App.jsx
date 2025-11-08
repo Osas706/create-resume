@@ -1,4 +1,4 @@
-import {Routes, Route} from 'react-router-dom';
+import {Routes, Route, Navigate} from 'react-router-dom';
 import Home from './pages/Home';
 import Layout from './pages/Layout';
 import Dashboard from './pages/Dashboard';
@@ -22,6 +22,8 @@ function App() {
 
         <Route path='/auth/login' element={<Login />} />
         <Route path='/auth/register' element={<Register />} />
+
+        <Route path='*' element={<Navigate to="/" />} />
       </Routes>
     </>
   )
