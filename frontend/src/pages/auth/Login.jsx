@@ -70,7 +70,7 @@ function Login() {
               placeholder="Enter your email"
               value={formData.email}
               onChange={handleChange}
-              className="bg-transparent text-gray-500/80 placeholder-gray-500/80 outline-none text-sm w-full h-full"
+              className="bg-transparent text-gray-500/80 placeholder-gray-500/80 outline-none text-sm w-full h-full border-none"
               required
             />
           </div>
@@ -83,7 +83,7 @@ function Login() {
               placeholder="Enter your Password"
               value={formData.password}
               onChange={handleChange}
-              className="bg-transparent text-gray-500/80 placeholder-gray-500/80 outline-none text-sm w-full h-full"
+              className="bg-transparent text-gray-500/80 placeholder-gray-500/80 outline-none text-sm w-full h-full border-none"
               required
             />
           </div>
