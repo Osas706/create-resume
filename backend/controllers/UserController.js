@@ -1,3 +1,4 @@
+import Resume from "../models/ResumeModel.js";
 import User from "../models/UserModel.js";
 
 // getUserById
@@ -15,3 +16,20 @@ export const getUserById = async (req, res) => {
     res.status(500).json({success: false, message: "Something went wrong" });
   };
 };
+
+
+// getUserResumes
+export const getUserResumes = async (req, res) => {
+  try {
+    const userId = req.userId;  //
+
+    const resumes = Resume.find({userId});
+    res.status(200).json({success: true, message: "Fetched user resumes successfully", resumes });
+  } catch (error) {
+    console.log(error, "Error in getUserResumes Controller");
+    res.status(500).json({success: false, message: "Something went wrong" });
+  };
+};
+
+
+
