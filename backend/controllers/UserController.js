@@ -1,4 +1,4 @@
-import User from "../models/UserModel";
+import User from "../models/UserModel.js";
 
 // getUserById
 export const getUserById = async (req, res) => {
@@ -13,5 +13,5 @@ export const getUserById = async (req, res) => {
   } catch (error) {
     console.log(error, "Error in getUserById Controller");
     res.status(500).json({success: false, message: "Something went wrong" });
-  }
+  };
 };
