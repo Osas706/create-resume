@@ -1,5 +1,5 @@
 import express from 'express';
-
+import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import 'dotenv/config';
 import connectToDB from './db/db.js';
@@ -18,7 +18,7 @@ const PORT = process.env.PORT || 3000;
 // middlewares
 app.use(express.json());
 app.use(cors());
-
+app.use(cookieParser())
 
 
 // routes
