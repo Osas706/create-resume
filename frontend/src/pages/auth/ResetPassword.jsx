@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import { Mail, Lock, FileText } from "lucide-react";
+import { Lock, FileText, LockOpen, LockKeyhole } from "lucide-react";
 import { Link } from "react-router-dom";
 
-function Login() {
+function ResetPassword() {
   const [formData, setFormData] = useState({
-    email: "",
-    password: ""
+    code: "",
+    password: "",
+    confirmPassword: "",
   });
 
   const handleChange = (e) => {
@@ -39,9 +40,9 @@ function Login() {
             </span>
             Resume
           </h1>
-          <h2 className="text-3xl text-gray-900 font-medium">Login</h2>
-          <p className="text-sm text-gray-500/90 mt-3">
-            Welcome back! Please login to continue
+          <h2 className="text-3xl text-gray-900 font-medium">Reset Password</h2>
+          <p className="text-sm text-gray-500/90 mt-3 text-center">
+            Please enter the code sent to your email along with your new password.
           </p>
 
           {/* <button
@@ -63,12 +64,12 @@ function Login() {
           </div> */}
 
           <div className="mt-10 flex items-center w-full bg-transparent border border-gray-300/60 h-12 rounded-full overflow-hidden pl-6 gap-2">
-            <Mail size={20} absoluteStrokeWidth />
+            <LockOpen size={20} absoluteStrokeWidth />
             <input
-              name="email"
-              type="email"
-              placeholder="Enter your email"
-              value={formData.email}
+              name="code"
+              type="text"
+              placeholder="Enter your reset code "
+              value={formData.code}
               onChange={handleChange}
               className="bg-transparent text-gray-500/80 placeholder-gray-500/80 outline-none text-sm w-full h-full border-none"
               required
@@ -87,11 +88,24 @@ function Login() {
               required
             />
           </div>
+          
+          <div className="flex items-center mt-4 w-full bg-transparent border border-gray-300/60 h-12 rounded-full overflow-hidden pl-6 gap-2">
+            <LockKeyhole />
+            <input
+              name="confirmPassword"
+              type="password"
+              placeholder="Confirm Password"
+              value={formData.confirmPassword}
+              onChange={handleChange}
+              className="bg-transparent text-gray-500/80 placeholder-gray-500/80 outline-none text-sm w-full h-full border-none"
+              required
+            />
+          </div>
 
           <div className="w-full flex items-center justify-between mt-8 text-gray-500/80">
-            <Link className="text-sm underline ml-auto" to="/auth/forgot-password">
+            <a className="text-sm underline ml-auto" href="#">
               Forgot password?
-            </Link>
+            </a>
           </div>
 
           <button
@@ -116,4 +130,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default ResetPassword;

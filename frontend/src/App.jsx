@@ -7,6 +7,8 @@ import Preview from './pages/Preview';
 
 import Login from './pages/auth/Login';
 import Register from './pages/auth/Register';
+import ForgotPassword from './pages/auth/ForgotPassword';
+import ResetPassword from './pages/auth/ResetPassword';
 
 function App() {
   return (
@@ -22,6 +24,8 @@ function App() {
 
         <Route path='/auth/login' element={<Login />} />
         <Route path='/auth/register' element={<Register />} />
+        <Route path='/auth/forgot-password' element={<ForgotPassword />} />
+        <Route path='/auth/reset-password' element={<ResetPassword />} />
 
         <Route path='*' element={<Navigate to="/" />} />
       </Routes>
