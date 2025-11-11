@@ -22,7 +22,7 @@ function Register() {
 
   return (
     <div className="flex h-screen w-full flex-col md:flex-row">
-      <div className="hidden md:block md:w-1/2">
+      <div className="hidden md:block md:w-1/2 bg-indigo-600">
         <img
           className="h-full w-full object-cover"
           src="https://raw.githubusercontent.com/prebuiltui/prebuiltui/main/assets/login/leftSideImage.png"
