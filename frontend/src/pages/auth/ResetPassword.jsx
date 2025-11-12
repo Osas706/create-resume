@@ -45,24 +45,6 @@ function ResetPassword() {
             Please enter the code sent to your email along with your new password.
           </p>
 
-          {/* <button
-            type="button"
-            className="w-full mt-8 bg-gray-500/10 flex items-center justify-center h-12 rounded-full"
-          >
-            <img
-              src="https://raw.githubusercontent.com/prebuiltui/prebuiltui/main/assets/login/googleLogo.svg"
-              alt="googleLogo"
-            />
-          </button> */}
-
-          {/* <div className="flex items-center gap-4 w-full my-5">
-            <div className="w-full h-px bg-gray-300/90"></div>
-            <p className="w-full text-nowrap text-sm text-gray-500/90">
-              or sign in with email
-            </p>
-            <div className="w-full h-px bg-gray-300/90"></div>
-          </div> */}
-
           <div className="mt-10 flex items-center w-full bg-transparent border border-gray-300/60 h-12 rounded-full overflow-hidden pl-6 gap-2">
             <LockOpen size={20} absoluteStrokeWidth />
             <input
