@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { FileText, Menu, X } from "lucide-react";
+import { DoorOpen, FileText, Menu, X } from "lucide-react";
 
 function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -73,6 +73,9 @@ function Navbar() {
         <a href="#contact" className="text-white">
           Contact
         </a>
+        <Link to="/auth/login" className="text-white flex gap-2 items-center">
+          Register / Login <DoorOpen />
+        </Link>
         <button
           onClick={() => setMenuOpen(false)}
           className="active:ring-3 active:ring-white aspect-square size-10 p-1 items-center justify-center bg-indigo-600 hover:bg-indigo-700 transition text-white rounded-md flex"
