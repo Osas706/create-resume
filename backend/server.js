@@ -8,7 +8,6 @@ import userRoutes from "./routes/UserRoute.js";
 import resumeRoutes from "./routes/ResumeRoute.js";
 import aiRoutes from "./routes/AiRoute.js";
 
-
 // database connection
 await connectToDB();
 
@@ -19,7 +18,7 @@ const PORT = process.env.PORT || 3000;
 app.use(express.json());
 app.use(cors());
 app.use(cookieParser())
-
+app.use(express.urlencoded({ extended: true }))
 
 // routes
 app.use("/api/auth", authRoutes);
