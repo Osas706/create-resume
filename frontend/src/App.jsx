@@ -19,6 +19,7 @@ function App() {
 
   // getUserData
   const getUserData = async () => {
+    dispatch(setLoading(true));
     const token = localStorage.getItem("token");
 
     try {
