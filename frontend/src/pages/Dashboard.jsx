@@ -9,8 +9,10 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 function Dashboard() {
+  const { user } = useSelector((state) => state.auth);
   const navigate = useNavigate();
   const [allResumes, setAllResumes] = useState([]);
   const [title, setTitle] = useState("");
@@ -47,7 +49,7 @@ function Dashboard() {
     <div>
       <div className="max-w-7xl mx-auto px-4 py-6">
         <p className="text-slate-700 font-medium mb-5 sm:hidden">
-          Welcome , Zu Zu
+          Welcome , {user?.name}
         </p>
 
         <div className="flex gap-4">

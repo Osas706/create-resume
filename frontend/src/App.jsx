@@ -1,4 +1,4 @@
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
 import Home from "./pages/Home";
 import Layout from "./pages/Layout";
 import Dashboard from "./pages/Dashboard";
@@ -16,6 +16,7 @@ import { useEffect } from "react";
 
 function App() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   // getUserData
   const getUserData = async () => {
@@ -29,8 +30,8 @@ function App() {
         });
         if (data.user) {
           dispatch(login({ token, user: data.user }));
-        }
-
+        };
+        navigate('/app')
         dispatch(setLoading(false));
       }
     } catch (error) {
@@ -45,7 +46,7 @@ function App() {
   }, [])
   
   return (
-    <>
+    <div className="app">
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/view/:resumeId" element={<Preview />} />
@@ -65,7 +66,7 @@ function App() {
 
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
-    </>
+    </div>
   );
 }
 
