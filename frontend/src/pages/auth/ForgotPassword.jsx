@@ -1,15 +1,32 @@
 import React, { useState } from "react";
 import { FileText, Mail } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
+import api from "@/config/api";
+import { useDispatch } from "react-redux";
+import { setLoading } from "@/store/features/authSlice";
 
 function ForgotPassword() {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
 
+  // handleSubmit
   const handleSubmit = async(e) => {
     e.preventDefault();
-    
-    navigate('/auth/reset-password')
+    dispatch(setLoading(true));
+
+    try {
+      const { data } = await api.post("/auth/forgot-password", { email });
+      console.log(data);
+      
+      navigate(`/auth/reset-password?email=${encodeURIComponent(email)}`)
+      toast.success("Email sent successfully")
+    } catch (error) {
+      console.log(error);
+    }finally{
+      dispatch(setLoading(false));
+      setEmail('')
+    }
   };
   
   return (

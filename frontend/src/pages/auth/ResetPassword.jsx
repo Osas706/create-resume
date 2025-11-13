@@ -1,9 +1,17 @@
 import React, { useState } from "react";
 import { Lock, FileText, LockOpen, LockKeyhole } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
+import api from "@/config/api";
+import { useDispatch } from "react-redux";
+import { setLoading } from "@/store/features/authSlice";
 
 function ResetPassword() {
+  const dispatch = useDispatch();
+  const [searchParams] = useSearchParams();
+  const emailFromQuery = searchParams.get("email") || "";
+
   const [formData, setFormData] = useState({
+    email: emailFromQuery,
     code: "",
     password: "",
     confirmPassword: "",
@@ -14,12 +22,23 @@ function ResetPassword() {
     setFormData(prev => ({...prev, [name]: value}))
   }
 
+  // handleSubmit
   const handleSubmit = async(e) => {
     e.preventDefault();
+    dispatch(setLoading(true));
+
+    try {
+      const {data} = await api.post("/auth/reset-password", formData);
+      console.log(data);
     
+      navigate("/auth/login");
+      toast.success("Password reset was successful")
+    } catch (error) {
+      console.log(error);
+    }finally{
+      dispatch(setLoading(false));
+    }
   };
-
-
   
   return (
     <div className="flex h-screen w-full flex-col md:flex-row">

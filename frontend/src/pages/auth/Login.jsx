@@ -1,8 +1,14 @@
 import React, { useState } from "react";
 import { Mail, Lock, FileText } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import api from "@/config/api";
+import { useDispatch } from "react-redux";
+import { login, setLoading } from "@/store/features/authSlice";
+import { toast } from "sonner";
 
 function Login() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: "",
     password: ""
@@ -13,12 +19,25 @@ function Login() {
     setFormData(prev => ({...prev, [name]: value}))
   }
 
+  // handleSubmit
   const handleSubmit = async(e) => {
     e.preventDefault();
-    
+    dispatch(setLoading(true));
+
+    try {
+      const {data} = await api.post("/auth/login", formData);
+      console.log(data);
+      
+      dispatch(login(data));
+      localStorage.setItem('token', data.token);
+      navigate("/app");
+      toast.success("Login was successful")
+    } catch (error) {
+      console.log(error);
+    }finally{
+      dispatch(setLoading(false));
+    }
   };
-
-
   
   return (
     <div className="flex h-screen w-full flex-col md:flex-row">

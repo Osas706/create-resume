@@ -1,8 +1,13 @@
 import React, { useState } from "react";
 import { Mail, Lock, FileText, User } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import api from "@/config/api";
+import { useDispatch } from "react-redux";
+import { login, setLoading } from "@/store/features/authSlice";
 
 function Register() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -14,11 +19,24 @@ function Register() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
+  // handleSubmit
   const handleSubmit = async(e) => {
     e.preventDefault();
+    dispatch(setLoading(true));
 
+    try {
+      const {data} = await api.post("/auth/register", formData);
+      dispatch(login(data));
+      
+      localStorage.setItem('token', data.token);
+      navigate("/app");
+      toast.success("Login was successful");
+    } catch (error) {
+      console.log(error);
+    }finally{
+      dispatch(setLoading(false))
+    }
   };
-
 
   return (
     <div className="flex h-screen w-full flex-col md:flex-row">
@@ -68,7 +86,7 @@ function Register() {
               name="name"
               type="text"
               placeholder="Name"
-              value={formData.email}
+              value={formData.name}
               onChange={handleChange}
               className="bg-transparent text-gray-500/80 placeholder-gray-500/80 outline-none text-sm w-full h-full border-none"
               required
