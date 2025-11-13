@@ -40,8 +40,10 @@ export const registerUser = async (req, res) => {
       password: hashedPassword,
     });
 
+    await newUser.save();
+
     // token
-    const token = generateToken(newUser._id, res);
+    const token = await generateToken(newUser._id, res);
     newUser.password = undefined;
 
     return res.status(201).json({
@@ -71,14 +73,14 @@ export const loginUser = async (req, res) => {
     if (!isPasswordCorrect) return res.status(400).json({success: false, message: "Invalid credentials" });
 
     // token
-    const token = generateToken(newUser._id, res);
-    newUser.password = undefined;
+    const token = await generateToken(user._id, res);
+    user.password = undefined;
 
     res.status(200).json({
       success: true,
       message: "Login was successful",
       token,
-      user: newUser,
+      user,
     });
   } catch (error) {
     console.log(error, "Error in loginUser Controller");

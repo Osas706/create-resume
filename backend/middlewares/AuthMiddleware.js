@@ -13,7 +13,7 @@ export const protectedRoute = async (req, res, next) => {
 
     next();
   } catch (error) {
-    console.log(error, "Error in protectRoute Controller");
+    console.log(error, "Error in protectedRoute Controller");
     res.status(500).json({success: false, message: "Unauthorized" });
   };
 };
