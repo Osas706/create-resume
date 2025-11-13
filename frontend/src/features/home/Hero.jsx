@@ -13,7 +13,7 @@ function Hero() {
   ];
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen overflow-hidden">
       {/* Navbar */}
       <Navbar />
 

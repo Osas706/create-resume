@@ -9,7 +9,7 @@ function NewsLetter() {
         Subscribe to our newsletter & get the latest news
       </h1>
 
-      <div className="flex items-center justify-center mt-10 focus-within:outline focus-within:outline-indigo-600 text-sm rounded-full h-14 max-w-sm md:max-w-md w-full">
+      <div className="flex items-center justify-center mt-10 focus-within:outline focus-within:outline-indigo-600 text-sm rounded-full h-14 max-w-sm md:max-w-md">
         <input
           type="text"
           className="bg-transparent outline-none rounded-full px-4 h-full md:flex-1"

@@ -4,6 +4,7 @@ import Navbar from "../features/dashboard/Navbar";
 import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
 import { Loader2 } from "lucide-react";
+
 function Layout() {
   const { user, loading } = useSelector((state) => state.auth);
 
