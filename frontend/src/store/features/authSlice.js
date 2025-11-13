@@ -22,20 +22,6 @@ const authSlice = createSlice({
       state.loading = action.payload
     }
   },
-  // extraReducers: (builder) => {
-  //   builder
-  //     .addCase(registerUser.pending, (state) => { state.loading = true })
-  //     .addCase(registerUser.fulfilled, (state, action) => {
-  //       state.loading = false;
-  //       state.user = action.payload.user;
-  //     })
-  //     .addCase(forgotPassword.fulfilled, (state, action) => {
-  //       state.message = action.payload.message;
-  //     })
-  //     .addCase(resetPassword.fulfilled, (state, action) => {
-  //       state.message = action.payload.message;
-  //     })
-  // }
 });
 
 export const {login, logout, setLoading} = authSlice.actions
