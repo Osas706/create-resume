@@ -3,7 +3,7 @@ import React from "react";
 
 function NewsLetter() {
   return (
-    <div className="w-full bg-slate-900 px-2 text-center text-white pt-20 pb-10 flex flex-col items-center justify-center">
+    <div id="contact" className="w-full bg-slate-900 px-2 text-center text-white pt-20 pb-10 flex flex-col items-center justify-center">
       <p className="text-indigo-500 font-medium">Get updated</p>
       <h1 className="max-w-lg font-semibold text-4xl/[34px] md:text-4xl/[44px]  mt-2">
         Subscribe to our newsletter & get the latest news
