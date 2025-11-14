@@ -6,11 +6,11 @@ import upload from '../lib/multer.js';
 const router = express.Router();
 
 router.post('/create', protectedRoute, createResume);
-router.put("/update", upload.single('image'), protectedRoute, updateResume );
+router.put("/update/:resumeId", upload.single('image'), protectedRoute, updateResume );
 
-router.get("/get/:id", protectedRoute, getResumeById );
-router.get("/public/:id", protectedRoute, getPublicResumeById );
+router.get("/get/:resumeId", protectedRoute, getResumeById );
+router.get("/public/:resumeId", protectedRoute, getPublicResumeById );
 
-router.delete("/delete/:id", protectedRoute, deleteResume );
+router.delete("/delete/:resumeId", protectedRoute, deleteResume );
 
 export default router;

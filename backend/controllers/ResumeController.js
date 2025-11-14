@@ -50,9 +50,7 @@ export const getResumeById = async (req, res) => {
 
     const resume = await Resume.findOne({ userId, _id: resumeId });
     if (!resume) {
-      return res
-        .status(500)
-        .json({ success: false, message: "Resume not found" });
+      return res.status(404).json({ success: false, message: "Resume not found" });
     }
 
     resume.__v = undefined;
@@ -77,9 +75,7 @@ export const getPublicResumeById = async (req, res) => {
 
     const resume = await Resume.findOne({ public: true, _id: resumeId });
     if (!resume) {
-      return res
-        .status(500)
-        .json({ success: false, message: "Resume not found" });
+      return res.status(404).json({ success: false, message: "Resume not found" });
     }
 
     resume.__v = undefined;
@@ -101,10 +97,13 @@ export const getPublicResumeById = async (req, res) => {
 export const updateResume = async (req, res) => {
   try {
     const userId = req.userId;
-    const { resumeId, resumeData, removeBackground } = req.body;
+    const { resumeId } = req.params;
+    const { resumeData, removeBackground } = req.body;
     const image = req.file;
 
-    let resumeDataCopy = JSON.parse(JSON.stringify(resumeData));
+    let resumeDataCopy = typeof resumeData === "string"
+      ? JSON.parse(resumeData)
+      : structuredClone(resumeData);
 
     if (image) {
       const imageBufferData = fs.createReadStream(image.path);
@@ -113,7 +112,7 @@ export const updateResume = async (req, res) => {
         fileName: "resume.jpg" ,
         folder: 'user-resumes',
         transformation: {
-          pre: 'w-300, h-300, fo-face,z-0.75' + (removeBackground ? 'e-bg-remove' : '')
+          pre: `w-300,h-300,fo-face,z-0.75${removeBackground ? ',e-bg-remove' : ''}` 
         }
       });
 
