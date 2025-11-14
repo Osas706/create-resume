@@ -13,6 +13,7 @@ import { useDispatch } from "react-redux";
 import api from "./config/api";
 import { login, setLoading } from "./store/features/authSlice";
 import { useEffect } from "react";
+import { toast } from "sonner";
 
 function App() {
   const dispatch = useDispatch();
@@ -21,6 +22,7 @@ function App() {
   // getUserData
   const getUserData = async () => {
     dispatch(setLoading(true));
+    toast.info("Loading your account...!")
     const token = localStorage.getItem("token");
 
     try {
@@ -32,10 +34,12 @@ function App() {
           dispatch(login({ token, user: data.user }));
         };
         navigate('/app')
+        toast.success("Welcome back!")
         dispatch(setLoading(false));
       }
     } catch (error) {
       console.log(error, "Error in getUserData func");
+      toast.error("Failed to load your account")
     } finally {
       dispatch(setLoading(false));
     }
