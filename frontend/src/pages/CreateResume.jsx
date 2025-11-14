@@ -1,4 +1,4 @@
-import { dummyResumeData } from "@/assets/assets";
+import api from "@/config/api";
 import ColorPicker from "@/features/createResume/ColorPicker";
 import EducationForm from "@/features/createResume/EducationForm";
 import ExperienceForm from "@/features/createResume/ExperienceForm";
@@ -24,11 +24,14 @@ import {
   User,
 } from "lucide-react";
 import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { toast } from "sonner";
 
 function CreateResume() {
+  const { token } = useSelector((state) => state.auth);
   const { resumeId } = useParams();
+  const navigate = useNavigate();
 
   const [resumeData, setResumeData] = useState({
     _id: "",
@@ -48,10 +51,20 @@ function CreateResume() {
 
   // loadExistingResume
   const loadExistingResume = async () => {
-    const resume = dummyResumeData.find((resume) => resume._id === resumeId);
-    if (resume) {
-      setResumeData(resume);
-      document.title = resume.title;
+    try {
+      const { data } = await api.get(`/resume/get/${resumeId}`, {
+        headers: { Authorization: token },
+      });
+
+      if (data.resume) {
+        setResumeData(data.resume);
+        document.title = data.resume.title;
+      }
+    } catch (error) {
+      toast.error(error?.response?.data?.message || error.message);
+      if (error?.response?.status === 404) {
+        navigate("/app");
+      }
     }
   };
 
@@ -70,8 +83,54 @@ function CreateResume() {
   const activeSection = sections[activeSectionIndex];
 
   // chanageResumeVisibility func
-  const chanageResumeVisibility = async (params) => {
+  const chanageResumeVisibility = async () => {
+    try {
+      const formData = new FormData();
+      formData.append( "resumeData", JSON.stringify({ public: !resumeData.public }));
+
+      const { data } = await api.put(`/resume/update/${resumeId}`, formData, {
+        headers: { Authorization: token },
+      });
+
+      setResumeData({ ...resumeData, public: !resumeData.public });
+      toast.success(data.message);
+    } catch (error) {
+      console.log(error);
+      toast.error(error?.response?.data?.message || error.message);
+    }
     setResumeData({ ...resumeData, public: !resumeData.public });
+  };
+
+  // saveResume
+  const saveResume = async () => {
+    try {
+      let copy = structuredClone(resumeData);
+
+      // remove image file object before sending if needed
+      if (typeof copy.personal_info.image === "object") {
+        delete copy.personal_info.image;
+      }
+
+      const formData = new FormData();
+      formData.append("resumeData", JSON.stringify(copy));
+
+      if (removeBackground) {
+        formData.append("removeBackground", "yes");
+      }
+
+      if (typeof resumeData.personal_info.image === "object") {
+        formData.append("image", resumeData.personal_info.image);
+      }
+
+      const { data } = await api.put(`/resume/update/${resumeId}`, formData, {
+        headers: { Authorization: token },
+      });
+      setResumeData(data.resume);
+      toast.success(data.message);
+    } catch (error) {
+      console.log(error);
+      toast.error(error?.response?.data?.message || error.message);
+    }
   };
 
   // handleShare func
@@ -111,10 +170,7 @@ function CreateResume() {
   return (
     <div>
       <div className="max-w-7xl mx-auto px-4 py-6">
-        <Link
-          to={"/app"}
-          className="inline-flex items-center gap-1 text-slate-500 hover:text-slate-700 transition-all"
-        >
+        <Link to={"/app"} className="inline-flex items-center gap-1 text-slate-500 hover:text-slate-700 transition-all" >
           <ArrowLeft className="size-4" />
           Back to Dashboard
         </Link>
@@ -275,7 +331,13 @@ function CreateResume() {
                 )}
               </div>
 
-              <button className="bg-linear-to-br from-green-100 to-green-200 ring-green-300 text-green-600 ring hover:ring-green-400 transition-all rounded-md px-6 py-2 mt-5 text-sm">
+              {/* ***  Save Changes Btn *** */}
+              <button
+                onClick={() => {
+                  toast.promise(saveResume, { loading: "Saving..." });
+                }}
+                className="bg-linear-to-br from-green-100 to-green-200 ring-green-300 text-green-600 ring hover:ring-green-400 transition-all rounded-md px-6 py-2 mt-5 text-sm"
+              >
                 Save Changes
               </button>
             </div>
