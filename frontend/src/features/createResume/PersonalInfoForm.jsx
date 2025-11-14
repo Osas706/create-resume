@@ -49,7 +49,7 @@ function PersonalInfoForm({
 
       <div className="flex items-center gap-2">
         {/* image */}
-        <label htmlFor="">
+        <label htmlFor="image">
           {data?.image ? (
             <img
               src={
@@ -69,11 +69,11 @@ function PersonalInfoForm({
 
           <input
             type="file"
-            accept="image/jepg, image/png"
+            accept="image/jpeg, image/png"
             className="hidden"
             onChange={(e) => handleChange("image", e.target.files[0])}
-            name=""
-            id=""
+            name="image"
+            id="image"
           />
         </label>
 
