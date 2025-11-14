@@ -1,7 +1,13 @@
-import { Briefcase, Plus, Sparkles, Trash } from "lucide-react";
-import React from "react";
+import api from "@/config/api";
+import { Briefcase, Loader, Plus, Sparkles, Trash } from "lucide-react";
+import React, { useState } from "react";
+import { useSelector } from "react-redux";
+import { toast } from "sonner";
 
 function ExperienceForm({ data, onChange }) {
+  const { token } = useSelector((state) => state.auth);
+  const [generatingIndex, setGeneratingIndex] = useState(-1);
+
   // addExperience func
   const addExperience = () => {
     const newExperience = {
@@ -27,6 +33,29 @@ function ExperienceForm({ data, onChange }) {
     const updated = [...data];
     updated[index] = { ...updated[index], [field]: value };
     onChange(updated);
+  };
+
+  // generateDescription func
+  const generateDescription = async (index) => {
+    try {
+      setGeneratingIndex(index);
+      const experience = data[index];
+
+      const prompt = `enhance this job description summary "${experience?.description}" for ths postion of ${experience.position} at ${experience.company}`;
+      const response = await api.post("/ai/enhance-job-desc",
+        { userContent: prompt },
+        { headers: { Authorization: token } }
+      );
+      console.log(response);
+
+      updateExperience(index, "description", response?.data?.enhancedContent);
+    } catch (error) {
+      console.log(error);
+
+      toast.error(error?.response?.data?.message || error.message);
+    } finally {
+      setGeneratingIndex(-1);
+    }; 
   };
 
   return (
@@ -135,16 +164,36 @@ function ExperienceForm({ data, onChange }) {
                     );
                   }}
                 />
-                <span className="text-sm text-gray-700">Currently working here</span>
+                <span className="text-sm text-gray-700">
+                  Currently working here
+                </span>
               </label>
 
               {/* Job Description & AI  */}
               <div className="space-y-2">
                 <div className="flex items-center justify-between gap-2">
-                  <label htmlFor="text-sm font-medium text-gray-700 ">Job Description</label>
-                  <button className="flex items-center gap-1 px- py-2 text-xs bg-purple-100 rounded  hover:bg-purple-200 text-purple-700 transition-colors disabled:opacity-50  ">
-                    <Sparkles className="w-3 h-3" />
-                    Enhance with AI
+                  <label htmlFor="text-sm font-medium text-gray-700 ">
+                    Job Description
+                  </label>
+
+                  <button
+                    onClick={() => generateDescription(index)}
+                    disabled={
+                      generatingIndex === index ||
+                      !experience.position ||
+                      !experience.company
+                    }
+                    className="flex items-center gap-1 px- py-2 text-xs bg-purple-100 rounded  hover:bg-purple-200 text-purple-700 transition-colors disabled:opacity-50"
+                  >
+                    {generatingIndex === index ? (
+                      <Loader className="size-4 animate-spin" />
+                    ) : (
+                      <Sparkles className="size-4" />
+                    )}
+
+                    {generatingIndex === index
+                      ? "Enhancing.."
+                      : "Enhance with AI"}
                   </button>
                 </div>
 
@@ -156,7 +205,9 @@ function ExperienceForm({ data, onChange }) {
                   value={experience.description || ""}
                   className="w-full py-3 px-4 border text-sm border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-colors resize-none"
                   placeholder="Describe your key responsibilities and achievements..."
-                  onChange={(e) => updateExperience(index, 'description', e.target.value)}
+                  onChange={(e) =>
+                    updateExperience(index, "description", e.target.value)
+                  }
                 />
               </div>
             </div>

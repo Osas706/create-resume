@@ -1,7 +1,40 @@
-import { Sparkles } from "lucide-react";
-import React from "react";
+import api from "@/config/api";
+import { Loader, Sparkles } from "lucide-react";
+import React, { useState } from "react";
+import { useSelector } from "react-redux";
+import { toast } from "sonner";
 
 function SummaryForm({ data, onChange, setResumeData }) {
+  const { token } = useSelector((state) => state.auth);
+  const [isGenerating, setIsGenerating] = useState(false);
+
+  // generateSummary func
+  const generateSummary = async () => {
+    try {
+      setIsGenerating(true);
+      const prompt = `enhance my professional summary "${data}"`;
+      const response = await api.post(
+        "/ai/enhance-pro-sum",
+        { userContent: prompt },
+        {
+          headers: { Authorization: token },
+        }
+      );
+      console.log(response);
+
+      setResumeData((prev) => ({
+        ...prev,
+        professional_summary: response.data.enhancedContent,
+      }));
+    } catch (error) {
+      console.log(error);
+
+      toast.error(error?.response?.data?.message || error.message);
+    } finally {
+      setIsGenerating(false);
+    }
+  };
+
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between gap-2">
@@ -14,9 +47,17 @@ function SummaryForm({ data, onChange, setResumeData }) {
           </p>
         </div>
 
-        <button className="flex items-center gap-2 px-1 py-2 text-sm bg-purple-100 text-purple-700 rounded hover:bg-purple-200 transition-colors disabled:opacity-50">
-          <Sparkles className="size-4" />
-          AI Enhance
+        <button
+          onClick={generateSummary}
+          disabled={isGenerating}
+          className="flex items-center gap-2 px-1 py-2 text-sm bg-purple-100 text-purple-700 rounded hover:bg-purple-200 transition-colors disabled:opacity-50"
+        >
+          {isGenerating ? (
+            <Loader className="size-4 animate-spin" />
+          ) : (
+            <Sparkles className="size-4" />
+          )}
+          {isGenerating ? "Enhancing.." : "AI Enhance"}
         </button>
       </div>
 
@@ -31,8 +72,10 @@ function SummaryForm({ data, onChange, setResumeData }) {
           placeholder="Write a compelling professional summary that highlights your key strength..."
           onChange={(e) => onChange(e.target.value)}
         />
+
         <p className="text-xs text-gray-500 max-w-4/5 mx-auto text-center">
-          Tips: Keep it concise (3-4 sentences) and focus on your most relevant achievements and skills
+          Tips: Keep it concise (3-4 sentences) and focus on your most relevant
+          achievements and skills
         </p>
       </div>
     </div>
