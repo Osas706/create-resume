@@ -25,7 +25,8 @@ export const enhanceProfessionalSummary = async (req, res) => {
         },
       ],
     });
-    const enhancedContent = response.choices[0].message;
+
+    const enhancedContent = response.choices[0].message.content;
 
     res.status(200).json({
       success: true,
@@ -60,7 +61,7 @@ export const enhanceJobDescription = async (req, res) => {
         },
       ],
     });
-    const enhancedContent = response.choices[0].message;
+    const enhancedContent = response.choices[0].message.content;
 
     res.status(200).json({
       success: true,
