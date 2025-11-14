@@ -7,23 +7,55 @@ import {
   DialogTrigger,
   DialogTitle,
 } from "@/components/ui/dialog";
+import api from "@/config/api";
+import { toast } from "sonner";
+import { useSelector } from "react-redux";
 
 function ResumeCard({ resume, baseColor, allResumes, setAllResumes }) {
+  const { token } = useSelector((state) => state.auth);
   const navigate = useNavigate();
+
+  const [open, setOpen] = useState(false);
   const [title, setTitle] = useState("");
-  // const [editResumeId, setEditResumeId] = useState("");
+  const [editResumeId, setEditResumeId] = useState("");
 
   // editTitle
   const editTitle = async (e) => {
-    e.preventDefault();
+    try {
+      e.preventDefault();
+      const { data } = await api.put(`/resume/update`,{
+          resumeId: editResumeId,
+          resumeData: { title },
+        },
+        { headers: { Authorization: token } }
+      );
+
+      setAllResumes(allResumes.map((resume) =>
+        resume._id === editResumeId ? { ...resume, title } : resume
+      ));
+      setTitle("");
+      setEditResumeId("");
+      setOpen(false);
+      toast.success(data.message);
+    } catch (error) {
+      console.log(error);
+      toast.error(error?.response?.data?.message || error.message);
+    }
   };
 
   // deleteResume
   const deleteResume = async (resumeId) => {
-    const confirm = window.confirm('Are you sure you want to delele this resume ?');
-    if (confirm) {
-      setAllResumes(prev => prev.filter(item => item._id !== resumeId))
-      console.log(allResumes);
+    try {
+      const confirm = window.confirm("Are you sure you want to delele this resume ?");
+      if (confirm) {
+        const { data } = await api.delete(`/resume/delete/${resumeId}`, {
+          headers: { Authorization: token },
+        });
+        setAllResumes(allResumes.filter((item) => item._id !== resumeId));
+        toast.success(data?.message);
+      };
+    } catch (error) {
+      toast.error(error?.response?.data?.message || error.message);
     }
   };
 
@@ -55,18 +87,25 @@ function ResumeCard({ resume, baseColor, allResumes, setAllResumes }) {
         Updated on{new Date(resume.updatedAt).toLocaleDateString()}{" "}
       </p>
 
-      <div onClick={(e) => e.stopPropagation()} className="absolute top-1 right-1 hidden group-hover:flex items-center gap-1">
+      <div
+        onClick={(e) => e.stopPropagation()}
+        className="absolute top-1 right-1 hidden group-hover:flex items-center gap-1"
+      >
         {/* delete resume */}
-        <Trash 
-          onClick={() => deleteResume(resume._id)} 
-          className="size-6 p-1 hover:bg-white/40 rounded text-slate-700 transition-colors" 
+        <Trash
+          onClick={() => deleteResume(resume._id)}
+          className="size-6 p-1 hover:bg-white/40 rounded text-slate-700 transition-colors"
         />
 
         {/* edit resume */}
-        <Dialog>
+        <Dialog open={open} onOpenChange={setOpen}>
           <DialogTrigger asChild>
             <Pencil
-              onClick={() => setTitle(resume.title)}
+              onClick={() => {
+                setTitle(resume.title),
+                  setEditResumeId(resume._id),
+                  setOpen(true);
+              }}
               className="size-6 p-1 hover:bg-white/40 rounded text-slate-700 transition-colors"
             />
           </DialogTrigger>

@@ -10,33 +10,70 @@ import {
 } from "@/components/ui/dialog";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import api from "@/config/api";
+import { toast } from "sonner";
+import pdfToText from "react-pdftotext";
 
 function Dashboard() {
-  const { user } = useSelector((state) => state.auth);
+  const { user, token } = useSelector((state) => state.auth);
   const navigate = useNavigate();
+
   const [allResumes, setAllResumes] = useState([]);
   const [title, setTitle] = useState("");
   const [resume, setResume] = useState(null);
-  // const [editResumeId, setEditResumeId] = useState("");
 
+  const [loading, setLoading] = useState(false);
+  // const [editResumeId, setEditResumeId] = useState("");
 
   // loadAllResume
   const loadAllResume = async () => {
-    setAllResumes(dummyResumeData);
+    try {
+      const { data } = await api.get("/user/resumes", { 
+        headers: { Authorization: token }}
+      );
+
+      setAllResumes(data?.resumes);
+    } catch (error) {
+      toast.error(error?.response?.data?.message || error.message);
+    }
   };
 
   // createResume
   const createResume = async (e) => {
     e.preventDefault();
 
-    navigate(`/app/create-resume/res123`);
+    try {
+      const { data } = await api.post("/resume/create",
+        { title },
+        { headers: { Authorization: token }}
+      );
+      setAllResumes([...allResumes, data.resume]);
+      setTitle("");
+      navigate(`/app/create-resume/${data.resume._id}`);
+    } catch (error) {
+      toast.error(error?.response?.data?.message || error.message);
+    }
   };
 
   // uploadResume
   const uploadResume = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
-    navigate(`/app/create-resume/res123`);
+    try {
+      const resumeText = await pdfToText(resume);
+      const { data } = await api.post("/ai/upload-resume",
+        { title, resumeText },
+        { headers: { Authorization: token }}
+      );
+      setTitle("");
+      setResume(null);
+      navigate(`/app/create-resume/${data.resumeId}`);
+    } catch (error) {
+      toast.error(error?.response?.data?.message || error.message);
+    } finally {
+      setLoading(false);
+    };
   };
 
   useEffect(() => {
@@ -64,7 +101,10 @@ function Dashboard() {
               </button>
             </DialogTrigger>
 
-            <DialogContent aria-describedby={undefined} className="sm:max-w-[425px] bg-white border-slate-300 p-3">
+            <DialogContent
+              aria-describedby={undefined}
+              className="sm:max-w-[425px] bg-white border-slate-300 p-3"
+            >
               <form onSubmit={createResume}>
                 <div onClick={(e) => e.stopPropagation()}>
                   <DialogTitle className="text-xl font-semibold mb-4">
@@ -80,7 +120,10 @@ function Dashboard() {
                     required
                   />
 
-                  <button type="submit" className="w-full py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700 transition-colors">
+                  <button
+                    type="submit"
+                    className="w-full py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700 transition-colors"
+                  >
                     Create Resume
                   </button>
                 </div>
@@ -94,16 +137,19 @@ function Dashboard() {
               <button className="w-full bg-white sm:max-w-36 h-48 flex flex-col items-center justify-center rounded-lg gap-2 text-slate-600 border border-dashed border-slate-300 group-hover:border-sky-600 hover:shadow-sm transition-all duration-300 cursor-pointer">
                 <UploadCloud className="size-11 p-2.5 bg-sky-700 text-white rounded-full" />
                 <p className="text-sm group-hover:text-sky-600 transition-all duration-300">
-                  Upload Existing 
+                  Upload Existing
                 </p>
               </button>
             </DialogTrigger>
 
-            <DialogContent aria-describedby={undefined} className="sm:max-w-[425px] bg-white border-slate-300 p-3">
+            <DialogContent
+              aria-describedby={undefined}
+              className="sm:max-w-[425px] bg-white border-slate-300 p-3"
+            >
               <form onSubmit={uploadResume}>
                 <div onClick={(e) => e.stopPropagation()}>
                   <DialogTitle className="text-xl font-semibold mb-4">
-                    Upload Existing 
+                    Upload Existing
                   </DialogTitle>
 
                   <input
@@ -116,7 +162,10 @@ function Dashboard() {
                   />
 
                   <div className="">
-                    <label htmlFor="resume-input" className="Block text-sm text-slate-700">
+                    <label
+                      htmlFor="resume-input"
+                      className="Block text-sm text-slate-700"
+                    >
                       <div className="flex flex-col items-center justify-center gap-2 border group text-slate-400 border-slate-400 border-dashed rounded-md p-4 py-10 my-4 hover:border-indigo-600 hover:text-indigo-700 cursor-pointer transition-colors">
                         {resume ? (
                           <p className="text-indigo-700">{resume.name}</p>
@@ -129,17 +178,21 @@ function Dashboard() {
                       </div>
                     </label>
 
-                    <input 
-                      type="file" 
-                      id="resume-input" 
-                      accept=".pdf"     
-                      onChange={(e) => setResume(e.target.files[0])} 
-                      hidden 
+                    <input
+                      type="file"
+                      id="resume-input"
+                      accept=".pdf"
+                      onChange={(e) => setResume(e.target.files[0])}
+                      hidden
                     />
                   </div>
 
-                  <button type="submit" className="w-full py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700 transition-colors">
-                    Upload Existing 
+                  <button
+                    type="submit"
+                    disabled={loading}
+                    className="w-full py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700 transition-colors"
+                  >
+                    {loading ? "Uploading..." : "Upload Existing "}
                   </button>
                 </div>
               </form>
@@ -155,7 +208,13 @@ function Dashboard() {
             const baseColor = colors[index % colors.length];
 
             return (
-              <ResumeCard resume={resume} baseColor={baseColor} key={index} allResumes={allResumes} setAllResumes={setAllResumes} />
+              <ResumeCard
+                resume={resume}
+                baseColor={baseColor}
+                key={index}
+                allResumes={allResumes}
+                setAllResumes={setAllResumes}
+              />
             );
           })}
         </div>
