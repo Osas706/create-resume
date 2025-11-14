@@ -133,7 +133,7 @@ function ResumeCard({ resume, baseColor, allResumes, setAllResumes }) {
                   type="submit"
                   className="w-full py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700 transition-colors"
                 >
-                  Update
+                  Edit Resume
                 </button>
               </div>
             </form>

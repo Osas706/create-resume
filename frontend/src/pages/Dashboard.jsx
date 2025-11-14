@@ -190,7 +190,7 @@ function Dashboard() {
                   <button
                     type="submit"
                     disabled={loading}
-                    className="w-full py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700 transition-colors"
+                    className="w-full py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700 transition-colors disabled:opacity-50"
                   >
                     {loading ? "Uploading..." : "Upload Existing "}
                   </button>
