@@ -21,12 +21,12 @@ function TemplateSelector({ selectedTemplate, onChange }) {
         "Sleek design with strategic use of color and modern font choices",
     },
     {
-      id: "mimimal-image",
+      id: "minimal-image",
       name: "Minimal Image",
       preview: "Minimal design with a design image and clean typography",
     },
     {
-      id: "mimimal",
+      id: "minimal",
       name: "Minimal",
       preview: "Ultra-clean design that puts your conetnt front ad center.",
     },
