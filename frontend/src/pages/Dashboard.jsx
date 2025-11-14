@@ -1,6 +1,5 @@
 import { Plus, UploadCloud } from "lucide-react";
 import React, { useEffect, useState } from "react";
-import { dummyResumeData } from "../assets/assets";
 import ResumeCard from "../features/dashboard/ResumeCard";
 import {
   Dialog,
@@ -23,7 +22,6 @@ function Dashboard() {
   const [resume, setResume] = useState(null);
 
   const [loading, setLoading] = useState(false);
-  // const [editResumeId, setEditResumeId] = useState("");
 
   // loadAllResume
   const loadAllResume = async () => {
