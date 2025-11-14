@@ -9,7 +9,7 @@ router.post('/create', protectedRoute, createResume);
 router.put("/update/:resumeId", upload.single('image'), protectedRoute, updateResume );
 
 router.get("/get/:resumeId", protectedRoute, getResumeById );
-router.get("/public/:resumeId", protectedRoute, getPublicResumeById );
+router.get("/public/:resumeId", getPublicResumeById );
 
 router.delete("/delete/:resumeId", protectedRoute, deleteResume );
 
