@@ -8,9 +8,9 @@ const router = express.Router();
 router.post('/create', protectedRoute, createResume);
 router.put("/update", upload.single('image'), protectedRoute, updateResume );
 
-router.get("/get:id", protectedRoute, getResumeById );
-router.get("/public:id", protectedRoute, getPublicResumeById );
+router.get("/get/:id", protectedRoute, getResumeById );
+router.get("/public/:id", protectedRoute, getPublicResumeById );
 
-router.delete("/delete:id", protectedRoute, deleteResume );
+router.delete("/delete/:id", protectedRoute, deleteResume );
 
 export default router;
