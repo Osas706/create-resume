@@ -34,7 +34,7 @@ function Footer() {
         </a>
 
         <a
-          href="https://www.instagram.com"
+          href="https://www.instagram.com/iiam.winner?igsh=MTh3ODFwcjBlZWFnZQ%3D%3D&utm_source=qr"
           target="_blank"
           className="hover:-translate-y-0.5 transition-all duration-300"
         >
@@ -42,7 +42,7 @@ function Footer() {
         </a>
 
         <a
-          href="https://www.linkedin.com"
+          href="https://www.linkedin.com/in/winner-omoregie-035178299"
           target="_blank"
           className="hover:-translate-y-0.5 transition-all duration-300"
         >
@@ -56,7 +56,7 @@ function Footer() {
           <Twitter />
         </a>
         <a
-          href="https://www.github.com"
+          href="https://github.com/Osas706"
           target="_blank"
           className="hover:-translate-y-0.5 transition-all duration-300"
         >
