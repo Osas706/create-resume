@@ -3,6 +3,12 @@ import { ArrowRight, Star } from "lucide-react";
 import Navbar from "./Navbar";
 import { Link } from "react-router-dom";
 
+import Image1 from '../../assets/imgs/ped.jpg';
+import Image2 from '../../assets/imgs/pry.jpg';
+import Image3 from '../../assets/imgs/ala.jpg';
+import Image4 from '../../assets/imgs/sma.jpg';
+import Image5 from '../../assets/imgs/hot.jpg';
+
 function Hero() {
   const logos = [
     "https://saasly.prebuiltui.com/assets/companies-logo/instagram.svg",
@@ -25,27 +31,27 @@ function Hero() {
         <div className="flex items-center mt-24">
           <div className="flex -space-x-3 pr-3">
             <img
-              src="/src/assets/imgs/ped.jpg"
-              alt="user3"
+              src={Image1}
+              alt="user1"
               className="size-8 object-cover rounded-full border-2 border-white hover:-translate-y-0.5 transition z-1"
             />
             <img
-              src="/src/assets/imgs/pry.jpg"
-              alt="user1"
+              src={Image2}
+              alt="user2"
               className="size-8 object-cover rounded-full border-2 border-white hover:-translate-y-0.5 transition z-2"
             />
             <img
-              src="/src/assets/imgs/ala.jpg"
-              alt="user2"
+              src={Image3}
+              alt="user3"
               className="size-8 object-cover rounded-full border-2 border-white hover:-translate-y-0.5 transition z-3"
             />
             <img
-              src="/src/assets/imgs/sma.jpg"
-              alt="user3"
+              src={Image4}
+              alt="user4"
               className="size-8 object-cover rounded-full border-2 border-white hover:-translate-y-0.5 transition z-4"
             />
             <img
-              src="/src/assets/imgs/hot.jpg"
+            src={Image5}
               alt="user5"
               className="size-8 rounded-full border-2 border-white hover:-translate-y-0.5 transition z-5"
             />
