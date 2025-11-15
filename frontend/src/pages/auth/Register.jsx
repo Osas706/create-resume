@@ -2,10 +2,11 @@ import React, { useState } from "react";
 import { Mail, Lock, FileText, User } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import api from "@/config/api";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { login, setLoading } from "@/store/features/authSlice";
 
 function Register() {
+  const { loading } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
@@ -121,9 +122,10 @@ function Register() {
 
           <button
             type="submit"
-            className="mt-8 w-full h-11 rounded-full text-white bg-indigo-500 hover:opacity-90 transition-opacity"
+            disabled={loading}
+            className="mt-8 w-full h-11 rounded-full text-white bg-indigo-500 hover:opacity-90 transition-opacity disabled:opacity-50"
           >
-            Register
+            {loading ? "Loading..." : "Register"}
           </button>
 
           <p className="text-gray-500/90 text-sm mt-4">

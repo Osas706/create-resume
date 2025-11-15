@@ -2,10 +2,11 @@ import React, { useState } from "react";
 import { FileText, Mail } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import api from "@/config/api";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setLoading } from "@/store/features/authSlice";
 
 function ForgotPassword() {
+  const { loading } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
@@ -68,9 +69,10 @@ function ForgotPassword() {
 
           <button
             type="submit"
-            className="mt-8 w-full h-11 rounded-full text-white bg-indigo-500 hover:opacity-90 transition-opacity"
+            disabled={loading}
+            className="mt-8 w-full h-11 rounded-full text-white bg-indigo-500 hover:opacity-90 transition-opacity disabled:opacity-50"
           >
-            Send Reset Password Code
+            {loading ? "Loading..." : "Send Reset Password Code"} 
           </button>
 
           <p className="text-gray-500/90 text-sm mt-4">

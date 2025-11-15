@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { Lock, FileText, LockOpen, LockKeyhole } from "lucide-react";
-import { Link, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import api from "@/config/api";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setLoading } from "@/store/features/authSlice";
 
 function ResetPassword() {
+  const { loading } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const [searchParams] = useSearchParams();
   const emailFromQuery = searchParams.get("email") || "";
@@ -103,28 +104,13 @@ function ResetPassword() {
             />
           </div>
 
-          <div className="w-full flex items-center justify-between mt-8 text-gray-500/80">
-            <a className="text-sm underline ml-auto" href="#">
-              Forgot password?
-            </a>
-          </div>
-
           <button
             type="submit"
-            className="mt-8 w-full h-11 rounded-full text-white bg-indigo-500 hover:opacity-90 transition-opacity"
+            disabled={loading}
+            className="mt-8 w-full h-11 rounded-full text-white bg-indigo-500 hover:opacity-90 transition-opacity disabled:opacity-50"
           >
-            Login
+            {loading ? "Loading..." : "Reset Password"}
           </button>
-
-          <p className="text-gray-500/90 text-sm mt-4">
-            Don't have an account?{" "}
-            <Link
-              className="text-indigo-400 hover:underline"
-              to="/auth/register"
-            >
-              Register
-            </Link>
-          </p>
         </form>
       </div>
     </div>
