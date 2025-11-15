@@ -216,6 +216,15 @@ function Dashboard() {
             );
           })}
         </div>
+
+        {/* resume empty */}
+        <div className="flex flex-wrap gap-4 mt-5">
+         {allResumes.length === 0 && (
+            <p className="text-center w-full text-slate-400 text-lg max-w-sm md:max-w-md mx-auto">
+              No resumes found, click "Create Resume" or "Upload existing" resume to get started. 
+            </p>
+          )}
+        </div>
       </div>
     </div>
   );
