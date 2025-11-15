@@ -17,7 +17,7 @@ const PORT = process.env.PORT || 3000;
 // middlewares
 app.use(express.json());
 app.use(cors({
-  origin: [`http://localhost:${PORT}`, process.env.FRONTEND_URL],
+  origin: [`http://localhost:${PORT}`, "https://create-this-resume.vercel.app/"],
   credentials: true
 }));
 app.use(cookieParser())
