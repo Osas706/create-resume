@@ -1,4 +1,4 @@
-import { ChartNoAxesCombined, Download, Eye, LayoutTemplate, ShieldCheck, ShieldMinus, Sparkles, Upload, WandSparkles, Zap } from "lucide-react";
+import { Download, Eye, LayoutTemplate, ShieldCheck, Sparkles, Upload, Zap } from "lucide-react";
 import Title from "./Title";
 import React from "react";
 
