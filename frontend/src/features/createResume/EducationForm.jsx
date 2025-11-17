@@ -113,7 +113,6 @@ function EducationForm({ data, onChange }) {
                     updateExperience(index, "graduation_date", e.target.value)
                   }
                   // placeholder=""
-                  disabled={experience.is_current}
                   className="px-3 py-2 text-sm rounded-lg disabled:bg-gray-100"
                 />
 
