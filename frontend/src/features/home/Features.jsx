@@ -1,4 +1,4 @@
-import { ChartNoAxesCombined, Download, ShieldMinus, Zap } from "lucide-react";
+import { ChartNoAxesCombined, Download, Eye, LayoutTemplate, ShieldCheck, ShieldMinus, Sparkles, Upload, WandSparkles, Zap } from "lucide-react";
 import Title from "./Title";
 import React from "react";
 
@@ -24,43 +24,84 @@ function Features() {
         {/* feature cards */}
         <div className="flex flex-col items-center justify-center w-full">
           <div className="p-4 aspect-square bg-violet-100 rounded-full">
-            <ChartNoAxesCombined color="#7F22FE" size={25} />
+            <Eye color="#7F22FE" size={25} />
           </div>
           <div className="mt-5 space-y-2 text-center">
             <h3 className="text-base font-semibold text-slate-700">
-              Real-Time Analytics
+              Real-Time Resume Preview
             </h3>
             <p className="text-sm text-slate-600">
-              Get instant insights into your finances with live dashboards.
+              See your resume update instantly as you fill out each section — no need to reload or switch screens.
             </p>
           </div>
         </div>
 
         <div className="flex flex-col items-center justify-center w-full">
           <div className="p-4 aspect-square bg-green-100 rounded-full">
-            <ShieldMinus color="#00A63E" size={25} />
+            <ShieldCheck color="#00A63E" size={25} />
           </div>
           <div className="mt-5 space-y-2 text-center">
             <h3 className="text-base font-semibold text-slate-700">
-              Bank-Grade Security
+              Secure Account Login
             </h3>
             <p className="text-sm text-slate-600">
-              End-to-end encryption, 2FA, compliance with GDPR standards.
+              Your data is protected with modern authentication, encrypted storage, and privacy-first security practices.
             </p>
           </div>
         </div>
 
         <div className="flex flex-col items-center justify-center w-full">
           <div className="p-4 aspect-square bg-orange-100 rounded-full">
-            <Download color="#F54900" size={25} />
+            <Sparkles color="#F54900" size={25} />
           </div>
           <div className="mt-5 space-y-2 text-center">
             <h3 className="text-base font-semibold text-slate-700">
-              Customizable Reports
+              Smart AI Assistance
             </h3>
             <p className="text-sm text-slate-600">
-              Export professional, audit-ready financial reports for tax or
-              internal review.
+              Enhance your descriptions, fix grammar, or generate stronger bullet points using built-in AI writing tools.
+            </p>
+          </div>
+        </div>
+
+        <div className="flex flex-col items-center justify-center w-full">
+          <div className="p-4 aspect-square bg-blue-100 rounded-full">
+            <LayoutTemplate color="#1E40AF" size={25} />
+          </div>
+          <div className="mt-5 space-y-2 text-center">
+            <h3 className="text-base font-semibold text-slate-700">
+              Customizable Templates
+            </h3>
+            <p className="text-sm text-slate-600">
+              Switch between clean, professional, and creative resume templates with just one click.
+            </p>
+          </div>
+        </div>
+
+        <div className="flex flex-col items-center justify-center w-full">
+          <div className="p-4 aspect-square bg-teal-100 rounded-full">
+            <Download color="#0F766E" size={25} />
+          </div>
+          <div className="mt-5 space-y-2 text-center">
+            <h3 className="text-base font-semibold text-slate-700">
+              Easy Export Options
+            </h3>
+            <p className="text-sm text-slate-600">
+              Download your résumé in print-ready PDF formats anytime — free and unlimited.
+            </p>
+          </div>
+        </div>
+
+        <div className="flex flex-col items-center justify-center w-full">
+          <div className="p-4 aspect-square bg-pink-100 rounded-full">
+            <Upload color="#DB2777" size={25} />
+          </div>
+          <div className="mt-5 space-y-2 text-center">
+            <h3 className="text-base font-semibold text-slate-700">
+              Upload Existing Resume
+            </h3>
+            <p className="text-sm text-slate-600">
+              Upload your current résumé to quickly recreate and improve it using smart extraction tools.
             </p>
           </div>
         </div>
