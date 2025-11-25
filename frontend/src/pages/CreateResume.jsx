@@ -48,6 +48,7 @@ function CreateResume() {
   });
   const [activeSectionIndex, setActiveSectionIndex] = useState(0);
   const [removeBackground, setRemoveBackground] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   // loadExistingResume
   const loadExistingResume = async () => {
@@ -103,6 +104,8 @@ function CreateResume() {
 
   // saveResume
   const saveResume = async () => {
+    setLoading(true)
+
     try {
       let copy = structuredClone(resumeData);
 
@@ -130,6 +133,8 @@ function CreateResume() {
     } catch (error) {
       console.log(error);
       toast.error(error?.response?.data?.message || error.message);
+    }finally{
+      setLoading(false)
     }
   };
 
@@ -336,9 +341,10 @@ function CreateResume() {
                 onClick={() => {
                   toast.promise(saveResume, { loading: "Saving..." });
                 }}
-                className="bg-linear-to-br from-green-100 to-green-200 ring-green-300 text-green-600 ring hover:ring-green-400 transition-all rounded-md px-6 py-2 mt-5 text-sm"
+                disabled={loading}
+                className="bg-linear-to-br from-green-100 to-green-200 ring-green-300 text-green-600 ring hover:ring-green-400 transition-all rounded-md px-6 py-2 mt-5 text-sm disabled:opacity-70"
               >
-                Save Changes
+                {loading ? 'Saving...' : 'Save Changes'}
               </button>
             </div>
           </div>
