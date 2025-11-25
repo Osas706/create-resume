@@ -1,4 +1,4 @@
-import { Plus, UploadCloud } from "lucide-react";
+import { Loader, Plus, UploadCloud } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import ResumeCard from "../features/dashboard/ResumeCard";
 import {
@@ -22,9 +22,12 @@ function Dashboard() {
   const [resume, setResume] = useState(null);
 
   const [loading, setLoading] = useState(false);
+  const [pending ,setPending] = useState(false);
 
   // loadAllResume
   const loadAllResume = async () => {
+    setPending(true);
+
     try {
       const { data } = await api.get("/user/resumes", { 
         headers: { Authorization: token }}
@@ -33,6 +36,8 @@ function Dashboard() {
       setAllResumes(data?.resumes);
     } catch (error) {
       toast.error(error?.response?.data?.message || error.message);
+    } finally{
+      setPending(false)
     }
   };
 
@@ -217,9 +222,21 @@ function Dashboard() {
           })}
         </div>
 
+        {/* resume loading */}
+        <div className="flex flex-col flex-wrap gap-4 mt-5">
+         {pending && (
+            <div className="flex flex-col items-center">
+              <Loader className="size-8 animate-spin"/>
+              <p className="text-center w-full text-slate-400 text-lg max-w-sm md:max-w-md mx-auto">
+               Fetching Resumes
+              </p>
+            </div>
+          )}
+        </div>
+
         {/* resume empty */}
         <div className="flex flex-wrap gap-4 mt-5">
-         {allResumes.length === 0 && (
+         {(!pending && allResumes.length === 0) && (
             <p className="text-center w-full text-slate-400 text-lg max-w-sm md:max-w-md mx-auto">
               No resumes found, click "Create Resume" or "Upload existing" resume to get started. 
             </p>
