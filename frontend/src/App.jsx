@@ -12,17 +12,19 @@ import ResetPassword from "./pages/auth/ResetPassword";
 import { useDispatch } from "react-redux";
 import api from "./config/api";
 import { login, setLoading } from "./store/features/authSlice";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "sonner";
+import { Loader } from "lucide-react";
 
 function App() {
+  const [loading ,setLoading] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   // getUserData
   const getUserData = async () => {
-    dispatch(setLoading(true));
-    toast.info("Loading your account...!")
+    setLoading(true);
+    toast.info("Checking your account...!")
     const token = localStorage.getItem("token");
 
     try {
@@ -33,15 +35,15 @@ function App() {
         if (data.user) {
           dispatch(login({ token, user: data.user }));
         };
-        // navigate('/app')
+        navigate('/app')
         toast.success("Welcome back!")
-        dispatch(setLoading(false));
+        setLoading(false);
       }
     } catch (error) {
       console.log(error, "Error in getUserData func");
       toast.error("Failed to load your account")
     } finally {
-      dispatch(setLoading(false));
+      setLoading(false);
     }
   };
 
