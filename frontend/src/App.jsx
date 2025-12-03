@@ -35,7 +35,7 @@ function App() {
         if (data.user) {
           dispatch(login({ token, user: data.user }));
         };
-        navigate('/app')
+        // navigate('/app')
         toast.success("Welcome back!")
         setLoading(false);
       }
