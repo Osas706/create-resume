@@ -63,66 +63,7 @@ const ModernTemplate = ({ data, accentColor }) => {
 					</section>
 				)}
 
-				{/* Experience */}
-				{data.experience && data.experience.length > 0 && (
-					<section className="mb-8">
-						<h2 className="text-2xl font-light mb-6 pb-2 border-b border-gray-200">
-							Experience
-						</h2>
-
-						<div className="space-y-6">
-							{data.experience.map((exp, index) => (
-								<div key={index} className="relative pl-6 border-l border-gray-200">
-
-									<div className="flex justify-between items-start mb-2">
-										<div>
-											<h3 className="text-xl font-medium text-gray-900">{exp.position}</h3>
-											<p className="font-medium" style={{ color: accentColor }}>{exp.company}</p>
-										</div>
-										<div className="text-sm text-gray-500 bg-gray-100 px-3 py-1 rounded">
-											{formatDate(exp.start_date)} - {exp.is_current ? "Present" : formatDate(exp.end_date)}
-										</div>
-									</div>
-									{exp.description && (
-										<div className="text-gray-700 leading-relaxed mt-3 whitespace-pre-line">
-											{exp.description}
-										</div>
-									)}
-								</div>
-							))}
-						</div>
-					</section>
-				)}
-
-				{/* Projects */}
-				{data.project && data.project.length > 0 && (
-					<section className="mb-8">
-						<h2 className="text-2xl font-light mb-4 pb-2 border-b border-gray-200">
-							Projects
-						</h2>
-
-						<div className="space-y-6">
-							{data.project.map((p, index) => (
-								<div key={index} className="relative pl-6 border-l border-gray-200" style={{borderLeftColor: accentColor}}>
-
-
-									<div className="flex justify-between items-start">
-										<div>
-											<h3 className="text-lg font-medium text-gray-900">{p.name}</h3>
-										</div>
-									</div>
-									{p.description && (
-										<div className="text-gray-700 leading-relaxed text-sm mt-3">
-											{p.description}
-										</div>
-									)}
-								</div>
-							))}
-						</div>
-					</section>
-				)}
-
-				<div className="grid sm:grid-cols-2 gap-8">
+				<div className="grid sm:grid-cols-2 gap-8 mb-5">
 					{/* Education */}
 					{data.education && data.education.length > 0 && (
 						<section>
@@ -168,6 +109,64 @@ const ModernTemplate = ({ data, accentColor }) => {
 						</section>
 					)}
 				</div>
+
+				{/* Experience */}
+				{data.experience && data.experience.length > 0 && (
+					<section className="mb-8">
+						<h2 className="text-2xl font-light mb-6 pb-2 border-b border-gray-200">
+							Experience
+						</h2>
+
+						<div className="space-y-6">
+							{data.experience.map((exp, index) => (
+								<div key={index} className="relative">
+
+									<div className="flex justify-between items-start mb-2">
+										<div>
+											<h3 className="text-xl font-medium text-gray-900">{exp.position}</h3>
+											<p className="font-medium" style={{ color: accentColor }}>{exp.company}</p>
+										</div>
+										<div className="text-sm text-gray-500 bg-gray-100 px-3 py-1 rounded">
+											{formatDate(exp.start_date)} - {exp.is_current ? "Present" : formatDate(exp.end_date)}
+										</div>
+									</div>
+									{exp.description && (
+										<div className="text-gray-700 leading-relaxed mt-3 whitespace-pre-line">
+											{exp.description}
+										</div>
+									)}
+								</div>
+							))}
+						</div>
+					</section>
+				)}
+
+				{/* Projects */}
+				{data.project && data.project.length > 0 && (
+					<section className="mb-8">
+						<h2 className="text-2xl font-light mb-4 pb-2 border-b border-gray-200">
+							Projects
+						</h2>
+
+						<div className="space-y-6">
+							{data.project.map((p, index) => (
+								<div key={index} className="relative" style={{ borderLeftColor: accentColor }}>
+									<div className="flex justify-between items-start">
+										<div>
+											<h3 className="text-lg font-medium text-gray-900">{p.name}</h3>
+										</div>
+									</div>
+									{p.description && (
+										<div className="text-gray-700 leading-relaxed text-sm">
+											{p.description}
+										</div>
+									)}
+								</div>
+							))}
+						</div>
+					</section>
+				)}
+
 			</div>
 		</div>
 	);

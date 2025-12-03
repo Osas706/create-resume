@@ -110,7 +110,7 @@ function EducationForm({ data, onChange }) {
                   type="month"
                   value={education.graduation_date || ""}
                   onChange={(e) =>
-                    updateExperience(index, "graduation_date", e.target.value)
+                    updateEducation(index, "graduation_date", e.target.value)
                   }
                   // placeholder=""
                   className="px-3 py-2 text-sm rounded-lg disabled:bg-gray-100"
