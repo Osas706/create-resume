@@ -23,7 +23,7 @@ function ResumeCard({ resume, baseColor, allResumes, setAllResumes }) {
   const editTitle = async (e) => {
     try {
       e.preventDefault();
-      const { data } = await api.put(`/resume/update`,{
+      const { data } = await api.put(`/resume/update/${editResumeId}`,{
           resumeId: editResumeId,
           resumeData: { title },
         },
