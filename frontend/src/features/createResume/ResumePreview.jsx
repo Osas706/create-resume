@@ -33,15 +33,15 @@ return (
     <style>
       {`
         @page {
-          size: letter;
-          margin: 0;
+          size: A4;
+          margin: 10mm 12mm;
         }
 
         @media print {
           html, body {
-            width: 8.5in;
-            height: 11in;
-            overflow: hidden;
+            width: auto;
+            height: auto;
+            overflow: visible;
           }
 
           /* Hide everything by default */

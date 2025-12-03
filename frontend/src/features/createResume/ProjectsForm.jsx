@@ -73,7 +73,7 @@ function ProjectsForm({ data, onChange }) {
                   type="text"
                   value={project.name || ""}
                   onChange={(e) =>
-                    updateEducation(index, "name", e.target.value)
+                    updateProject(index, "name", e.target.value)
                   }
                   placeholder="Project Name"
                   className="px-3 py-2 text-sm rounded-lg"
