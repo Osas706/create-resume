@@ -56,7 +56,7 @@ const ClassicTemplate = ({ data, accentColor }) => {
       {data.professional_summary && (
         <section className="mb-6">
           <h2 className="text-xl font-semibold mb-3" style={{ color: accentColor }}>
-            PROFESSIONAL SUMMARY
+           SUMMARY
           </h2>
           <p className="text-gray-700 leading-relaxed">{data.professional_summary}</p>
         </section>
@@ -69,7 +69,7 @@ const ClassicTemplate = ({ data, accentColor }) => {
             CORE SKILLS
           </h2>
 
-          <div className="flex gap-4 flex-wrap">
+          <div className="flex gap-2 flex-wrap">
             {data.skills.map((skill, index) => (
               <div key={index} className="text-gray-700">
                 • {skill}
@@ -83,7 +83,7 @@ const ClassicTemplate = ({ data, accentColor }) => {
       {data.experience && data.experience.length > 0 && (
         <section className="mb-6">
           <h2 className="text-xl font-semibold mb-4" style={{ color: accentColor }}>
-            PROFESSIONAL EXPERIENCE
+           EXPERIENCE
           </h2>
 
           <div className="space-y-4">
